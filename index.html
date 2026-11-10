@@ -14,7 +14,21 @@
 </head>
 <body id="top">
 
-<div class="grain" aria-hidden="true"></div>
+<div class="intro" id="intro" aria-hidden="true">
+  <div class="intro-in">
+    <span class="intro-name">潘梓怡</span>
+    <span class="intro-sub">PORTFOLIO · 2026</span>
+    <span class="intro-bar"><i></i></span>
+  </div>
+</div>
+
+<div class="progress" aria-hidden="true"><i id="progress-bar"></i></div>
+
+<div class="blobs" aria-hidden="true">
+  <span class="blob b1"></span>
+  <span class="blob b2"></span>
+  <span class="blob b3"></span>
+</div>
 
 <header class="nav" id="nav">
   <a class="brand" href="#top">
@@ -24,7 +38,7 @@
   <nav class="nav-links" aria-label="主导航">
     <a href="#works">作品</a>
     <a href="#about">关于</a>
-    <a href="assets/resume.pdf" target="_blank" rel="noopener">简历</a>
+    <a href="assets/resume.jpg" target="_blank" rel="noopener">简历</a>
     <a href="#contact">联系</a>
   </nav>
 </header>
@@ -76,12 +90,20 @@
       </div>
 
       <div class="hero-right reveal" style="--d:.2s" aria-hidden="true">
-        <div class="plate">
-          <div class="plate-ring"></div>
-          <div class="plate-ring r2"></div>
-          <div class="plate-core"></div>
+        <div class="bento">
+          <figure class="bento-main glass">
+            <img src="assets/works/p1-cover.webp" alt="产品摄影作品">
+          </figure>
+          <div class="chip chip-1 glass">
+            <b>06</b><span>项目</span>
+          </div>
+          <div class="chip chip-2 glass">
+            <b>26</b><span>张作品</span>
+          </div>
+          <div class="chip chip-3 glass">
+            <i class="dot"></i><span>Cinema 4D · Blender</span>
+          </div>
         </div>
-        <span class="plate-caption">RENDER · 01</span>
       </div>
     </div>
 
@@ -106,8 +128,14 @@
       <p class="sec-note">2024 — 2026<br>点击图片查看完整项目</p>
     </div>
 
+    <nav class="cat-nav reveal" aria-label="作品分类">
+      <a href="#cat-3d">三维渲染</a>
+      <a href="#cat-photo">产品摄影</a>
+      <a href="#cat-graphic">平面设计</a>
+    </nav>
+
     <!-- 01 三维渲染 -->
-    <div class="cat-head reveal">
+    <div class="cat-head reveal" id="cat-3d">
       <span class="cat-no">01</span>
       <h3>三维渲染</h3>
       <span class="cat-line"></span>
@@ -161,7 +189,7 @@
     </div>
 
     <!-- 02 产品摄影 -->
-    <div class="cat-head reveal">
+    <div class="cat-head reveal" id="cat-photo">
       <span class="cat-no">02</span>
       <h3>产品摄影</h3>
       <span class="cat-line"></span>
@@ -215,7 +243,7 @@
     </div>
 
     <!-- 03 平面设计 -->
-    <div class="cat-head reveal">
+    <div class="cat-head reveal" id="cat-graphic">
       <span class="cat-no">03</span>
       <h3>平面设计</h3>
       <span class="cat-line"></span>
@@ -275,8 +303,8 @@
       <div class="about-head reveal">
         <p class="eyebrow">About</p>
         <h2>关于</h2>
-        <a class="cv-btn" href="assets/resume.pdf" target="_blank" rel="noopener">
-          <span class="cv-text">查看简历<em>PDF · 1 页</em></span>
+        <a class="cv-btn" href="assets/resume.jpg" target="_blank" rel="noopener">
+          <span class="cv-text">查看简历<em>JPG</em></span>
           <span class="cv-arrow">↗</span>
         </a>
       </div>

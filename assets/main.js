@@ -3,6 +3,37 @@
 (function () {
   'use strict';
 
+  /* ---------- 开场动画 ---------- */
+  var intro = document.getElementById('intro');
+  if (intro) {
+    document.body.style.overflow = 'hidden';
+    var release = function () {
+      intro.classList.add('done');
+      document.body.style.overflow = '';
+      window.setTimeout(function () {
+        if (intro.parentNode) intro.parentNode.removeChild(intro);
+      }, 1100);
+    };
+    window.setTimeout(release, 1350);
+    /* 兜底：无论脚本状态如何，2.6 秒后一定放行 */
+    window.setTimeout(function () {
+      document.body.style.overflow = '';
+      if (intro && intro.parentNode) intro.parentNode.removeChild(intro);
+    }, 2600);
+  }
+
+  /* ---------- 滚动进度条 ---------- */
+  var bar = document.getElementById('progress-bar');
+  function updateProgress() {
+    if (!bar) return;
+    var h = document.documentElement.scrollHeight - window.innerHeight;
+    var p = h > 0 ? Math.min(1, Math.max(0, window.scrollY / h)) : 0;
+    bar.style.transform = 'scaleX(' + p + ')';
+  }
+  window.addEventListener('scroll', updateProgress, { passive: true });
+  window.addEventListener('resize', updateProgress);
+  updateProgress();
+
   /* ---------- 导航栏滚动状态 ---------- */
   var nav = document.getElementById('nav');
   var lastState = false;
@@ -63,24 +94,6 @@
     }, { threshold: 0.35 });
 
     sections.forEach(function (s) { spy.observe(s); });
-  }
-
-  /* ---------- 釉盘视差（仅桌面） ---------- */
-  var plate = document.querySelector('.plate');
-  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var isFine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-
-  if (plate && isFine && !reduce) {
-    var raf = null;
-    window.addEventListener('mousemove', function (e) {
-      if (raf) return;
-      raf = requestAnimationFrame(function () {
-        var x = (e.clientX / window.innerWidth - 0.5) * 10;
-        var y = (e.clientY / window.innerHeight - 0.5) * 10;
-        plate.style.transform = 'translate3d(' + x + 'px,' + y + 'px,0)';
-        raf = null;
-      });
-    }, { passive: true });
   }
 
   /* ============================================================
@@ -146,6 +159,7 @@
     lbTitle.textContent = card.dataset.title || '';
     lbCat.textContent = card.dataset.cat || '';
     render(current.images, 0, current.long);
+    lb.classList.toggle('long', !!current.long);
     lb.classList.add('open');
     lb.setAttribute('aria-hidden', 'false');
     document.body.classList.add('lb-open');
