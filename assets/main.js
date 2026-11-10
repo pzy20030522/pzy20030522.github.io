@@ -116,10 +116,10 @@
     return list;
   }
 
-  function render(images, index) {
+  function render(images, index, longDoc) {
     lbStack.innerHTML = '';
-    // 长图项目（详情页）一次性全部堆叠；多图项目只渲染当前一张
-    var showAll = images.length > 8;
+    // 长图项目（详情页 / 品牌长图）一次性全部堆叠；多图项目只渲染当前一张
+    var showAll = !!longDoc;
     var list = showAll ? images : [images[index]];
 
     list.forEach(function (src, i) {
@@ -142,10 +142,10 @@
   }
 
   function open(card) {
-    current = { images: imagesOf(card), index: 0 };
+    current = { images: imagesOf(card), index: 0, long: card.dataset.long === '1' };
     lbTitle.textContent = card.dataset.title || '';
     lbCat.textContent = card.dataset.cat || '';
-    render(current.images, 0);
+    render(current.images, 0, current.long);
     lb.classList.add('open');
     lb.setAttribute('aria-hidden', 'false');
     document.body.classList.add('lb-open');
@@ -165,7 +165,7 @@
     var n = current.images.length;
     if (n <= 1) return;
     current.index = (current.index + dir + n) % n;
-    render(current.images, current.index);
+    render(current.images, current.index, current.long);
   }
 
   document.querySelectorAll('.case-btn').forEach(function (btn) {
