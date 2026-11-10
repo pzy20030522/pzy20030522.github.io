@@ -698,6 +698,105 @@ h2{
 }
 body.lb-open{ overflow:hidden; }
 
+
+/* ============================================================
+   画布装置
+   ============================================================ */
+.bento-main canvas{ width:100%; height:100%; display:block; }
+
+/* ============================================================
+   玻璃按钮（iOS 质感）
+   ============================================================ */
+.btn,
+.btn-ghost,
+.cv-btn,
+.cat-nav a,
+.skills span{
+  -webkit-backdrop-filter:blur(20px) saturate(180%);
+  backdrop-filter:blur(20px) saturate(180%);
+  transition:transform .35s var(--ease), box-shadow .35s, background .35s, color .35s, border-color .35s;
+}
+
+/* 主按钮：深色玻璃 */
+.btn{
+  border:1px solid rgba(255,255,255,.16);
+  background:linear-gradient(180deg, rgba(44,44,52,.90) 0%, rgba(14,14,18,.94) 100%);
+  color:#fff;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.24),
+             inset 0 -1px 0 rgba(0,0,0,.55),
+             0 12px 26px -14px rgba(0,0,0,.55);
+}
+.btn:hover{
+  border-color:rgba(255,255,255,.24);
+  background:linear-gradient(180deg, rgba(58,58,68,.92) 0%, rgba(20,20,26,.95) 100%);
+  transform:translateY(-2px);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.30),
+             inset 0 -1px 0 rgba(0,0,0,.55),
+             0 18px 34px -16px rgba(0,0,0,.6);
+}
+.btn-ghost{
+  border:1px solid rgba(255,255,255,.92);
+  background:linear-gradient(180deg, rgba(255,255,255,.92) 0%, rgba(236,239,246,.62) 100%);
+  color:var(--ink);
+  box-shadow:inset 0 1px 0 #fff,
+             inset 0 -3px 8px rgba(14,14,16,.05),
+             0 10px 24px -18px rgba(14,14,16,.5),
+             0 0 0 1px rgba(14,14,16,.06);
+}
+.btn-ghost:hover{
+  border-color:#fff;
+  background:linear-gradient(180deg, rgba(255,255,255,.96) 0%, rgba(255,255,255,.62) 100%);
+  color:var(--ink);
+  transform:translateY(-2px);
+  box-shadow:inset 0 1px 0 #fff,
+             0 16px 32px -20px rgba(14,14,16,.55),
+             0 0 0 1px rgba(14,14,16,.06);
+}
+
+/* 简历按钮：浅色玻璃 */
+.cv-btn{
+  border:1px solid rgba(255,255,255,.92);
+  background:linear-gradient(180deg, rgba(255,255,255,.92) 0%, rgba(236,239,246,.60) 100%);
+  box-shadow:inset 0 1px 0 #fff,
+             inset 0 -3px 8px rgba(14,14,16,.05),
+             0 10px 24px -18px rgba(14,14,16,.5),
+             0 0 0 1px rgba(14,14,16,.06);
+}
+.cv-btn:hover{
+  background:linear-gradient(180deg, rgba(255,255,255,.96) 0%, rgba(255,255,255,.60) 100%);
+  border-color:#fff;
+  color:var(--ink);
+  transform:translateY(-2px);
+  box-shadow:inset 0 1px 0 #fff,
+             0 16px 32px -20px rgba(14,14,16,.55),
+             0 0 0 1px rgba(14,14,16,.06);
+}
+.cv-btn:hover em{ color:var(--ink-3); }
+
+/* 分类胶囊 / 技能标签：玻璃片 */
+.cat-nav a,
+.skills span{
+  border:1px solid rgba(255,255,255,.9);
+  background:linear-gradient(180deg, rgba(255,255,255,.88) 0%, rgba(236,239,246,.56) 100%);
+  box-shadow:inset 0 1px 0 #fff,
+             inset 0 -2px 6px rgba(14,14,16,.04),
+             0 8px 18px -16px rgba(14,14,16,.55),
+             0 0 0 1px rgba(14,14,16,.05);
+}
+.cat-nav a:hover,
+.skills span:hover{
+  background:linear-gradient(180deg, rgba(255,255,255,.95) 0%, rgba(255,255,255,.62) 100%);
+  border-color:#fff;
+  transform:translateY(-2px);
+  box-shadow:inset 0 1px 0 #fff,
+             0 14px 26px -18px rgba(14,14,16,.55),
+             0 0 0 1px rgba(14,14,16,.06);
+}
+.skills span:hover{ color:var(--accent); }
+.cat-nav a:nth-child(1):hover{ color:var(--accent); border-color:#fff; }
+.cat-nav a:nth-child(2):hover{ color:var(--accent-2); border-color:#fff; }
+.cat-nav a:nth-child(3):hover{ color:var(--accent-3); border-color:#fff; }
+
 /* ============================================================
    RESPONSIVE
    ============================================================ */
