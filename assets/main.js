@@ -35,9 +35,9 @@
     revealEls.forEach(function (el) { el.classList.add('in'); });
   }
 
-  /* ---------- 作品卡片依次入场的细微延迟 ---------- */
-  document.querySelectorAll('.works .card').forEach(function (card, i) {
-    card.style.setProperty('--d', (i * 0.08) + 's');
+  /* ---------- 作品卡片依次入场 ---------- */
+  document.querySelectorAll('.works .case').forEach(function (card, i) {
+    card.style.setProperty('--d', (i * 0.09) + 's');
   });
 
   /* ---------- 导航高亮当前区块 ---------- */
@@ -56,18 +56,16 @@
         var link = links[entry.target.id];
         if (!link) return;
         if (entry.isIntersecting) {
-          Object.keys(links).forEach(function (k) {
-            links[k].style.color = '';
-          });
+          Object.keys(links).forEach(function (k) { links[k].style.color = ''; });
           link.style.color = 'var(--ink)';
         }
       });
-    }, { threshold: 0.4 });
+    }, { threshold: 0.35 });
 
     sections.forEach(function (s) { spy.observe(s); });
   }
 
-  /* ---------- 釉盘的轻微视差（仅桌面端） ---------- */
+  /* ---------- 釉盘视差（仅桌面） ---------- */
   var plate = document.querySelector('.plate');
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var isFine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
@@ -84,4 +82,110 @@
       });
     }, { passive: true });
   }
+
+  /* ============================================================
+     作品灯箱
+     ============================================================ */
+  var lb = document.getElementById('lb');
+  var lbStack = document.getElementById('lb-stack');
+  var lbScroll = document.getElementById('lb-scroll');
+  var lbTitle = document.getElementById('lb-title');
+  var lbCat = document.getElementById('lb-cat');
+  var lbIdx = document.getElementById('lb-idx');
+  var lbPrev = document.getElementById('lb-prev');
+  var lbNext = document.getElementById('lb-next');
+
+  var current = null;
+
+  function pad(num, len) {
+    var s = String(num);
+    while (s.length < len) s = '0' + s;
+    return s;
+  }
+
+  /* 生成某个项目的所有图片地址 */
+  function imagesOf(card) {
+    var key = card.dataset.key;
+    var n = parseInt(card.dataset.n, 10) || 1;
+    var p = parseInt(card.dataset.pad, 10) || 1;
+    var start = parseInt(card.dataset.start, 10) || 0;
+    var list = [];
+    for (var i = 0; i < n; i++) {
+      list.push('assets/works/' + key + '-' + pad(start + i, p) + '.webp');
+    }
+    return list;
+  }
+
+  function render(images, index) {
+    lbStack.innerHTML = '';
+    // 长图项目（详情页）一次性全部堆叠；多图项目只渲染当前一张
+    var showAll = images.length > 8;
+    var list = showAll ? images : [images[index]];
+
+    list.forEach(function (src, i) {
+      var img = document.createElement('img');
+      img.src = src;
+      img.alt = '';
+      img.loading = i === 0 ? 'eager' : 'lazy';
+      img.decoding = 'async';
+      lbStack.appendChild(img);
+    });
+
+    lbIdx.textContent = showAll
+      ? '长图'
+      : (images.length > 1 ? pad(index + 1, 2) + ' / ' + pad(images.length, 2) : '01');
+
+    var multi = images.length > 1 && !showAll;
+    lbPrev.hidden = !multi;
+    lbNext.hidden = !multi;
+    lbScroll.scrollTop = 0;
+  }
+
+  function open(card) {
+    current = { images: imagesOf(card), index: 0 };
+    lbTitle.textContent = card.dataset.title || '';
+    lbCat.textContent = card.dataset.cat || '';
+    render(current.images, 0);
+    lb.classList.add('open');
+    lb.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('lb-open');
+  }
+
+  function close() {
+    lb.classList.remove('open');
+    lb.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('lb-open');
+    setTimeout(function () {
+      if (!lb.classList.contains('open')) lbStack.innerHTML = '';
+    }, 380);
+  }
+
+  function step(dir) {
+    if (!current) return;
+    var n = current.images.length;
+    if (n <= 1) return;
+    current.index = (current.index + dir + n) % n;
+    render(current.images, current.index);
+  }
+
+  document.querySelectorAll('.case-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      open(btn.closest('.case'));
+    });
+  });
+
+  document.getElementById('lb-close').addEventListener('click', close);
+  lbPrev.addEventListener('click', function () { step(-1); });
+  lbNext.addEventListener('click', function () { step(1); });
+
+  lb.addEventListener('click', function (e) {
+    if (e.target === lb || e.target === lbScroll) close();
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'Escape') close();
+    if (e.key === 'ArrowLeft') step(-1);
+    if (e.key === 'ArrowRight') step(1);
+  });
 })();

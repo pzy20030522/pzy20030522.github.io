@@ -1,42 +1,37 @@
 # 潘梓怡 · 作品集
 
-陶瓷艺术设计个人作品集网站。纯静态页面，无构建依赖，双击 `index.html` 即可预览。
+三维视觉 / 电商设计个人作品集。纯静态页面，无构建依赖，双击 `index.html` 即可预览。
+
+线上地址：https://pzy20030522.github.io/
 
 ## 结构
 
 ```
 portfolio/
-├── index.html          # 页面内容（作品、关于、联系方式都在这里改）
+├── index.html            # 页面内容（文案、作品标题都在这里改）
 ├── assets/
-│   ├── style.css       # 全部样式（配色、字体、布局变量在文件顶部 :root）
-│   └── main.js         # 滚动渐显、导航栏状态等交互
-├── .nojekyll           # GitHub Pages 必需，别删
+│   ├── style.css         # 全部样式（配色在文件顶部 :root）
+│   ├── main.js           # 滚动渐显、灯箱、导航状态
+│   ├── icons/            # 软件图标 SVG
+│   └── works/            # 作品图（已压缩为 WebP）
+├── .nojekyll             # GitHub Pages 必需，别删
 └── README.md
 ```
 
-## 常见修改
+## 作品图片规则
 
-**改文案 / 加作品**：编辑 `index.html`，复制一段 `<article class="card reveal">...</article>` 改标题和文字即可。
-主推大卡片是 `class="card card-wide"`，会横跨两列。
+- 详情页长图：按 2600px 高切成多张 `d1-00.webp`、`d1-01.webp`……灯箱里依次拼接，避免手机一次性解码超大图。
+- 产品摄影：单张最长边 1600px。
+- 封面：统一 900×1125（4:5）。
 
-**换配色**：`assets/style.css` 顶部的 `:root` 里改 `--paper`（底色）、`--cobalt`（主色）、`--clay`（点缀色）。
+新增作品的步骤：把图压成 WebP 放进 `assets/works/`，然后在 `index.html` 里复制一个 `<article class="case">` 块，
+改 `data-key`（文件名前缀）、`data-n`（张数）、`data-pad`（补零位数：10 张以上填 2，否则 1）、
+`data-start`（文件名起始序号：`d1-00` 起始 0，`p1-1` 起始 1）。
 
-**放真实作品图**：把图片放进 `assets/img/`，然后把卡片里的 `<div class="thumb" data-variant="sea">…</div>` 换成：
-
-```html
-<div class="thumb">
-  <img src="assets/img/work-01.jpg" alt="海韵飞歌" loading="lazy">
-</div>
-```
-
-并给 `.thumb img` 加一条 `object-fit:cover; width:100%; height:100%;` 的样式。
-
-## 部署（GitHub Pages）
+## 部署
 
 ```bash
-git add -A && git commit -m "update"
-git push origin main
+git add -A && git commit -m "update" && git push origin main
 ```
 
-推上去后在仓库 Settings → Pages 里把 Source 设为 `Deploy from a branch` → `main` / `root`，
-等 1 分钟左右访问 `https://<用户名>.github.io/<仓库名>/` 。
+推到 `main` 后 GitHub Pages 约 1 分钟自动重建。
