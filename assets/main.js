@@ -320,3 +320,57 @@
     rt = setTimeout(function () { resize(); render(3.2); }, 160);
   });
 })();
+
+/* ============================================================
+   横向作品条：两侧悬停自动滚动 + 拖拽
+   ============================================================ */
+(function () {
+  var rails = document.querySelectorAll('[data-rail]');
+
+  Array.prototype.forEach.call(rails, function (rail) {
+    var dir = 0, raf = null;
+    var dragging = false, startX = 0, startLeft = 0, moved = 0;
+
+    function step() {
+      if (!dir) { raf = null; return; }
+      rail.scrollLeft += dir;
+      raf = requestAnimationFrame(step);
+    }
+
+    rail.addEventListener('mousemove', function (e) {
+      if (dragging) return;
+      var r = rail.getBoundingClientRect();
+      var x = (e.clientX - r.left) / r.width;
+      var v = 0;
+      if (x > 0.78) v = Math.pow((x - 0.78) / 0.22, 1.4) * 20;
+      else if (x < 0.22) v = -Math.pow((0.22 - x) / 0.22, 1.4) * 20;
+      dir = v;
+      if (dir && !raf) raf = requestAnimationFrame(step);
+    });
+
+    rail.addEventListener('mouseleave', function () { dir = 0; });
+
+    rail.addEventListener('mousedown', function (e) {
+      dragging = true; moved = 0;
+      startX = e.clientX; startLeft = rail.scrollLeft;
+      rail.style.cursor = 'grabbing';
+    });
+
+    rail.addEventListener('mousemove', function (e) {
+      if (!dragging) return;
+      var d = e.clientX - startX;
+      moved = Math.max(moved, Math.abs(d));
+      rail.scrollLeft = startLeft - d;
+    });
+
+    window.addEventListener('mouseup', function () {
+      if (!dragging) return;
+      dragging = false;
+      rail.style.cursor = '';
+    });
+
+    rail.addEventListener('click', function (e) {
+      if (moved > 8) { e.stopPropagation(); e.preventDefault(); moved = 0; }
+    }, true);
+  });
+})();

@@ -848,6 +848,11 @@ body{
   animation:bloomIn 22s ease-in-out infinite;
 }
 .flower svg{ width:100%; height:100%; }
+.flower::after{
+  content:""; position:absolute; inset:24%; border-radius:50%;
+  background:radial-gradient(circle, rgba(255,253,235,.98) 0%, rgba(255,248,205,.75) 38%, rgba(255,248,205,0) 72%);
+  filter:blur(3px);
+}
 .f1{ left:-6%;  bottom:-8%;  color:#FFA7C4; animation-delay:0s; }
 .f2{ right:-5%; top:6%;      color:#A9DFB8; animation-delay:-7s; width:clamp(150px,20vw,300px); }
 .f3{ right:8%;  bottom:2%;   color:#FFC9A3; animation-delay:-13s; width:clamp(130px,16vw,240px); }
@@ -924,6 +929,79 @@ h2{ letter-spacing:.08em; }
 
 /* 灯箱也换暖白 */
 .lb{ background:rgba(253,251,248,.86); }
+
+
+/* ============================================================
+   v8 · 横向作品条 + 小黄花
+   ============================================================ */
+.works.rail{ display:block; position:relative; }
+.rail{
+  margin-left:calc(var(--pad) * -1);
+  margin-right:calc(var(--pad) * -1);
+  padding-left:var(--pad);
+  padding-right:var(--pad);
+  overflow-x:auto; overflow-y:hidden;
+  scrollbar-width:none; -ms-overflow-style:none;
+  -webkit-overflow-scrolling:touch;
+  cursor:grab;
+  overscroll-behavior-x:contain;
+}
+.rail::-webkit-scrollbar{ display:none; }
+.rail-track{
+  display:flex; align-items:flex-start; gap:clamp(16px, 2vw, 26px);
+  width:max-content;
+  padding:6px 0 10px;
+}
+.rail .case{
+  flex:0 0 auto;
+  width:clamp(225px, 23vw, 325px);
+}
+.rail .case-media{ aspect-ratio:4/5; }
+.rail .case-txt h3{
+  font-size:17px; line-height:1.42;
+  word-break:keep-all; overflow-wrap:anywhere;
+}
+.rail .case-txt p{ font-size:11px; margin-top:4px; }
+
+.rail-hint{
+  position:absolute; top:36%; z-index:3;
+  width:42px; height:42px; border-radius:50%;
+  display:grid; place-items:center;
+  background:rgba(255,255,255,.82);
+  border:1px solid rgba(255,255,255,.95);
+  backdrop-filter:blur(14px) saturate(180%);
+  -webkit-backdrop-filter:blur(14px) saturate(180%);
+  box-shadow:0 10px 22px -16px rgba(36,31,34,.5);
+  font-size:13px; color:var(--ink-2);
+  opacity:0; transition:opacity .3s;
+  pointer-events:none;
+}
+.rail:hover .rail-hint{ opacity:.95; }
+.rail-hint-l{ left:10px; }
+.rail-hint-r{ right:10px; }
+
+/* 小黄花：半朦胧 */
+.flower{
+  width:clamp(90px, 13vw, 180px);
+  filter:blur(7px);
+  animation:bloomIn 26s ease-in-out infinite;
+}
+.f1{ left:2%;   bottom:4%;  color:#FFDE73; }
+.f2{ right:3%;  top:8%;     color:#FFE487; width:clamp(80px, 11vw, 150px); }
+.f3{ right:12%; bottom:16%; color:#FFD75E; width:clamp(70px, 9vw, 120px); }
+.f4{ left:14%;  top:38%;    color:#FFEBA0; width:clamp(60px, 8vw, 105px); }
+@keyframes bloomIn{
+  0%, 58%, 100%{ opacity:0; transform:scale(.88) rotate(-6deg); }
+  68%{ opacity:.78; transform:scale(1) rotate(0deg); }
+  78%{ opacity:.62; transform:scale(1.04) rotate(5deg); }
+  86%{ opacity:.72; transform:scale(1.02) rotate(8deg); }
+}
+
+@media (max-width: 560px){
+  .rail .case{ width:min(72vw, 280px); }
+  .rail-hint{ display:none; }
+  .flower{ filter:blur(6px); }
+}
 
 /* ============================================================
    RESPONSIVE
