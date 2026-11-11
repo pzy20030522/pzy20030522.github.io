@@ -118,6 +118,7 @@
 
   /* 生成某个项目的所有图片地址 */
   function imagesOf(card) {
+    if (card.dataset.single) return [card.dataset.single];
     var key = card.dataset.key;
     var n = parseInt(card.dataset.n, 10) || 1;
     var p = parseInt(card.dataset.pad, 10) || 1;
