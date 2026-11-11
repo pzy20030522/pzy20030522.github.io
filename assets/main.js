@@ -323,19 +323,30 @@
 })();
 
 /* ============================================================
-   横向作品条：两侧悬停自动滚动 + 拖拽
+   横向作品条：两侧悬停自动滚动 + 拖拽 + 左右翻页按钮
    ============================================================ */
 (function () {
   var rails = document.querySelectorAll('[data-rail]');
 
   Array.prototype.forEach.call(rails, function (rail) {
+    var sc = rail.querySelector('.rail-scroll');
+    if (!sc) return;
+    var btnL = rail.querySelector('.rail-btn-l');
+    var btnR = rail.querySelector('.rail-btn-r');
+
     var dir = 0, raf = null;
     var dragging = false, startX = 0, startLeft = 0, moved = 0;
 
     function step() {
       if (!dir) { raf = null; return; }
-      rail.scrollLeft += dir;
+      sc.scrollLeft += dir;
       raf = requestAnimationFrame(step);
+    }
+
+    function updateBtns() {
+      var max = sc.scrollWidth - sc.clientWidth - 2;
+      if (btnL) btnL.disabled = sc.scrollLeft <= 2;
+      if (btnR) btnR.disabled = sc.scrollLeft >= max;
     }
 
     rail.addEventListener('mousemove', function (e) {
@@ -351,27 +362,41 @@
 
     rail.addEventListener('mouseleave', function () { dir = 0; });
 
-    rail.addEventListener('mousedown', function (e) {
+    sc.addEventListener('mousedown', function (e) {
       dragging = true; moved = 0;
-      startX = e.clientX; startLeft = rail.scrollLeft;
-      rail.style.cursor = 'grabbing';
+      startX = e.clientX; startLeft = sc.scrollLeft;
+      sc.style.cursor = 'grabbing';
     });
 
-    rail.addEventListener('mousemove', function (e) {
+    sc.addEventListener('mousemove', function (e) {
       if (!dragging) return;
       var d = e.clientX - startX;
       moved = Math.max(moved, Math.abs(d));
-      rail.scrollLeft = startLeft - d;
+      sc.scrollLeft = startLeft - d;
     });
 
     window.addEventListener('mouseup', function () {
       if (!dragging) return;
       dragging = false;
-      rail.style.cursor = '';
+      sc.style.cursor = '';
     });
 
-    rail.addEventListener('click', function (e) {
+    sc.addEventListener('click', function (e) {
       if (moved > 8) { e.stopPropagation(); e.preventDefault(); moved = 0; }
     }, true);
+
+    function page(sign) {
+      var card = sc.querySelector('.case');
+      var w = card ? card.offsetWidth + 26 : sc.clientWidth * 0.8;
+      var target = sc.scrollLeft + sign * w * 2;
+      sc.scrollTo({ left: target, behavior: 'smooth' });
+    }
+
+    if (btnL) btnL.addEventListener('click', function () { page(-1); });
+    if (btnR) btnR.addEventListener('click', function () { page(1); });
+
+    sc.addEventListener('scroll', updateBtns, { passive: true });
+    window.addEventListener('resize', updateBtns);
+    setTimeout(updateBtns, 120);
   });
 })();

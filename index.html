@@ -103,7 +103,7 @@
             <canvas id="flow" aria-label="动态渐变装置"></canvas>
           </figure>
           <div class="chip chip-1 glass">
-            <b>20</b><span>项目</span>
+            <b>22</b><span>项目</span>
           </div>
           <div class="chip chip-2 glass">
             <b>70</b><span>张作品</span>
@@ -151,6 +151,7 @@
     </div>
 
     <div class="works rail reveal" data-rail>
+      <div class="rail-scroll">
       <div class="rail-track">
 
           <article class="case" data-key="d1" data-n="10" data-pad="2" data-start="0" data-long="1"
@@ -361,8 +362,9 @@
           </article>
 
       </div>
-      <span class="rail-hint rail-hint-l" aria-hidden="true">←</span>
-      <span class="rail-hint rail-hint-r" aria-hidden="true">→</span>
+      </div>
+      <button class="rail-btn rail-btn-l" type="button" aria-label="向左翻页" disabled>←</button>
+      <button class="rail-btn rail-btn-r" type="button" aria-label="向右翻页">→</button>
     </div>
 
     <div class="cat-head reveal" id="cat-photo">
@@ -373,6 +375,7 @@
     </div>
 
     <div class="works rail reveal" data-rail>
+      <div class="rail-scroll">
       <div class="rail-track">
 
           <article class="case" data-key="p1" data-n="5" data-pad="1" data-start="1"
@@ -437,18 +440,20 @@
           </article>
 
       </div>
-      <span class="rail-hint rail-hint-l" aria-hidden="true">←</span>
-      <span class="rail-hint rail-hint-r" aria-hidden="true">→</span>
+      </div>
+      <button class="rail-btn rail-btn-l" type="button" aria-label="向左翻页" disabled>←</button>
+      <button class="rail-btn rail-btn-r" type="button" aria-label="向右翻页">→</button>
     </div>
 
     <div class="cat-head reveal" id="cat-graphic">
       <span class="cat-no">03</span>
       <h3>平面设计</h3>
       <span class="cat-line"></span>
-      <span class="cat-num">4 组 · 14 张</span>
+      <span class="cat-num">6 组 · 16 张</span>
     </div>
 
     <div class="works rail reveal" data-rail>
+      <div class="rail-scroll">
       <div class="rail-track">
 
           <article class="case" data-key="b1" data-n="3" data-pad="2" data-start="0" data-long="1"
@@ -511,30 +516,73 @@
               </div>
             </button>
           </article>
-          <article class="case" data-key="g3" data-n="3" data-pad="1" data-start="1"
-                   data-title="展览海报" data-cat="平面设计 / 海报设计">
+          <article class="case" data-single="assets/works/g3-1.webp" data-n="1"
+                   data-title="民艺中国 · 陶瓷艺术展" data-cat="平面设计 / 展览海报">
             <button class="case-btn" type="button">
               <div class="case-media">
-                <img src="assets/works/g3-cover.webp"
-                     srcset="assets/works/g3-cover-s.webp 600w, assets/works/g3-cover.webp 900w"
+                <img src="assets/works/g3c-1-cover.webp"
+                     srcset="assets/works/g3c-1-cover-s.webp 600w, assets/works/g3c-1-cover.webp 900w"
                      sizes="(max-width: 760px) 70vw, 340px"
-                     width="900" height="1125" alt="展览海报" loading="lazy" decoding="async">
-                <span class="case-hover">查看完整项目 <b>↗</b></span>
+                     width="900" height="1125" alt="民艺中国 · 陶瓷艺术展" loading="lazy" decoding="async">
+                <span class="case-hover">查看大图 <b>↗</b></span>
               </div>
               <div class="case-meta">
                 <span class="case-idx">17</span>
                 <div class="case-txt">
-                  <h3>展览海报</h3>
-                  <p>平面设计 / 海报设计</p>
+                  <h3>民艺中国 · 陶瓷艺术展</h3>
+                  <p>平面设计 / 展览海报</p>
                 </div>
-                <span class="case-count">3 张</span>
+                <span class="case-count">1 张</span>
+              </div>
+            </button>
+          </article>
+
+          <article class="case" data-single="assets/works/g3-2.webp" data-n="1"
+                   data-title="窑火诗性" data-cat="平面设计 / 展览海报">
+            <button class="case-btn" type="button">
+              <div class="case-media">
+                <img src="assets/works/g3c-2-cover.webp"
+                     srcset="assets/works/g3c-2-cover-s.webp 600w, assets/works/g3c-2-cover.webp 900w"
+                     sizes="(max-width: 760px) 70vw, 340px"
+                     width="900" height="1125" alt="窑火诗性" loading="lazy" decoding="async">
+                <span class="case-hover">查看大图 <b>↗</b></span>
+              </div>
+              <div class="case-meta">
+                <span class="case-idx">18</span>
+                <div class="case-txt">
+                  <h3>窑火诗性</h3>
+                  <p>平面设计 / 展览海报</p>
+                </div>
+                <span class="case-count">1 张</span>
+              </div>
+            </button>
+          </article>
+
+          <article class="case" data-single="assets/works/g3-3.webp" data-n="1"
+                   data-title="泥塑新生 · 毕业展" data-cat="平面设计 / 展览海报">
+            <button class="case-btn" type="button">
+              <div class="case-media">
+                <img src="assets/works/g3c-3-cover.webp"
+                     srcset="assets/works/g3c-3-cover-s.webp 600w, assets/works/g3c-3-cover.webp 900w"
+                     sizes="(max-width: 760px) 70vw, 340px"
+                     width="900" height="1125" alt="泥塑新生 · 毕业展" loading="lazy" decoding="async">
+                <span class="case-hover">查看大图 <b>↗</b></span>
+              </div>
+              <div class="case-meta">
+                <span class="case-idx">19</span>
+                <div class="case-txt">
+                  <h3>泥塑新生 · 毕业展</h3>
+                  <p>平面设计 / 展览海报</p>
+                </div>
+                <span class="case-count">1 张</span>
               </div>
             </button>
           </article>
 
       </div>
-      <span class="rail-hint rail-hint-l" aria-hidden="true">←</span>
-      <span class="rail-hint rail-hint-r" aria-hidden="true">→</span>
+      </div>
+      <button class="rail-btn rail-btn-l" type="button" aria-label="向左翻页" disabled>←</button>
+      <button class="rail-btn rail-btn-r" type="button" aria-label="向右翻页">→</button>
     </div>
 
     <div class="cat-head reveal" id="cat-space">
@@ -545,6 +593,7 @@
     </div>
 
     <div class="works rail reveal" data-rail>
+      <div class="rail-scroll">
       <div class="rail-track">
 
           <article class="case" data-key="o1" data-n="1" data-pad="1" data-start="1"
@@ -558,7 +607,7 @@
                 <span class="case-hover">查看完整项目 <b>↗</b></span>
               </div>
               <div class="case-meta">
-                <span class="case-idx">18</span>
+                <span class="case-idx">20</span>
                 <div class="case-txt">
                   <h3>野奢 · 云岑民宿</h3>
                   <p>空间设计 / 民宿空间</p>
@@ -578,7 +627,7 @@
                 <span class="case-hover">查看完整项目 <b>↗</b></span>
               </div>
               <div class="case-meta">
-                <span class="case-idx">19</span>
+                <span class="case-idx">21</span>
                 <div class="case-txt">
                   <h3>素肌 · 品牌空间</h3>
                   <p>空间设计 / 商业空间</p>
@@ -598,7 +647,7 @@
                 <span class="case-hover">查看完整项目 <b>↗</b></span>
               </div>
               <div class="case-meta">
-                <span class="case-idx">20</span>
+                <span class="case-idx">22</span>
                 <div class="case-txt">
                   <h3>康纳 · 定制展厅</h3>
                   <p>空间设计 / 展厅设计</p>
@@ -609,8 +658,9 @@
           </article>
 
       </div>
-      <span class="rail-hint rail-hint-l" aria-hidden="true">←</span>
-      <span class="rail-hint rail-hint-r" aria-hidden="true">→</span>
+      </div>
+      <button class="rail-btn rail-btn-l" type="button" aria-label="向左翻页" disabled>←</button>
+      <button class="rail-btn rail-btn-r" type="button" aria-label="向右翻页">→</button>
     </div>
   </section>
 

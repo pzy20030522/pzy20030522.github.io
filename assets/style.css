@@ -935,7 +935,8 @@ h2{ letter-spacing:.08em; }
    v8 · 横向作品条 + 小黄花
    ============================================================ */
 .works.rail{ display:block; position:relative; }
-.rail{
+.rail{ position:relative; }
+.rail-scroll{
   margin-left:calc(var(--pad) * -1);
   margin-right:calc(var(--pad) * -1);
   padding-left:var(--pad);
@@ -946,7 +947,7 @@ h2{ letter-spacing:.08em; }
   cursor:grab;
   overscroll-behavior-x:contain;
 }
-.rail::-webkit-scrollbar{ display:none; }
+.rail-scroll::-webkit-scrollbar{ display:none; }
 .rail-track{
   display:flex; align-items:flex-start; gap:clamp(16px, 2vw, 26px);
   width:max-content;
@@ -963,22 +964,26 @@ h2{ letter-spacing:.08em; }
 }
 .rail .case-txt p{ font-size:11px; margin-top:4px; }
 
-.rail-hint{
-  position:absolute; top:36%; z-index:3;
-  width:42px; height:42px; border-radius:50%;
+/* 左右翻页按钮 */
+.rail-btn{
+  position:absolute; top:32%; z-index:5;
+  width:44px; height:44px; border-radius:50%;
   display:grid; place-items:center;
-  background:rgba(255,255,255,.82);
-  border:1px solid rgba(255,255,255,.95);
-  backdrop-filter:blur(14px) saturate(180%);
-  -webkit-backdrop-filter:blur(14px) saturate(180%);
-  box-shadow:0 10px 22px -16px rgba(36,31,34,.5);
-  font-size:13px; color:var(--ink-2);
-  opacity:0; transition:opacity .3s;
-  pointer-events:none;
+  background:rgba(255,255,255,.9);
+  border:1px solid rgba(255,255,255,.98);
+  backdrop-filter:blur(16px) saturate(180%);
+  -webkit-backdrop-filter:blur(16px) saturate(180%);
+  box-shadow:0 14px 28px -18px rgba(36,31,34,.55);
+  color:var(--ink-2); font-size:15px; line-height:1;
+  cursor:pointer;
+  transition:opacity .28s, transform .22s var(--ease), background .3s, color .3s;
 }
-.rail:hover .rail-hint{ opacity:.95; }
-.rail-hint-l{ left:10px; }
-.rail-hint-r{ right:10px; }
+.rail-btn:hover{ background:#fff; color:var(--ink); transform:scale(1.08); }
+.rail-btn:active{ transform:scale(.96); }
+.rail-btn[disabled]{ opacity:0; pointer-events:none; transition:none; }
+.rail-btn-l{ left:calc(var(--pad) * -1 + 10px); }
+.rail-btn-r{ right:calc(var(--pad) * -1 + 10px); }
+
 
 /* 小黄花：半朦胧 */
 .flower{
@@ -999,7 +1004,7 @@ h2{ letter-spacing:.08em; }
 
 @media (max-width: 560px){
   .rail .case{ width:min(72vw, 280px); }
-  .rail-hint{ display:none; }
+  .rail-btn{ display:none; }
   .flower{ filter:blur(6px); }
 }
 
