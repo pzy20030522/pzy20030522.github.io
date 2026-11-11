@@ -230,11 +230,22 @@
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   }
 
+  var C_GREEN = [143, 211, 164], C_CREAM = [255, 240, 220], C_PINK = [255, 143, 177];
+  function lerp3(a, b, k) {
+    return [a[0] + (b[0] - a[0]) * k, a[1] + (b[1] - a[1]) * k, a[2] + (b[2] - a[2]) * k];
+  }
+  function fieldColor(p, t) {
+    var k = p + 0.11 * Math.sin(t * 0.17 + p * 2.1);
+    k = k - Math.floor(k);
+    var c = k < 0.5 ? lerp3(C_GREEN, C_CREAM, k * 2) : lerp3(C_CREAM, C_PINK, (k - 0.5) * 2);
+    var lift = 10 * Math.sin(t * 0.45 + p * 3.1);
+    return [Math.min(255, c[0] + lift), Math.min(255, c[1] + lift), Math.min(255, c[2] + lift)];
+  }
+
   function ribbon(i, n, t, step) {
     var p = i / (n - 1);
-    var hue = (188 + p * 168 + Math.sin(t * 0.16) * 26 + t * 5) % 360;
-    var sat = 66 + Math.sin(p * Math.PI) * 20;
-    var lig = 72 + Math.sin(p * Math.PI * 1.2 + t * 0.5) * 8;
+    var c0 = fieldColor(p, t);
+    var c1 = fieldColor((p + 0.06) % 1, t + 0.6);
     var a1 = H * 0.075, a2 = H * 0.028;
     var segs = 22;
     var x0 = i * step - step * 0.32;
@@ -257,9 +268,9 @@
     ctx.closePath();
 
     var g = ctx.createLinearGradient(0, 0, 0, H);
-    g.addColorStop(0, 'hsla(' + hue + ',' + sat + '%,' + (lig + 8) + '%,0.46)');
-    g.addColorStop(0.45, 'hsla(' + ((hue + 16) % 360) + ',' + sat + '%,' + lig + '%,0.66)');
-    g.addColorStop(1, 'hsla(' + ((hue + 34) % 360) + ',' + sat + '%,' + (lig + 5) + '%,0.46)');
+    g.addColorStop(0, 'rgba(' + (c1[0] | 0) + ',' + (c1[1] | 0) + ',' + (c1[2] | 0) + ',0.58)');
+    g.addColorStop(0.5, 'rgba(' + (c0[0] | 0) + ',' + (c0[1] | 0) + ',' + (c0[2] | 0) + ',0.80)');
+    g.addColorStop(1, 'rgba(' + (c1[0] | 0) + ',' + (c1[1] | 0) + ',' + (c1[2] | 0) + ',0.58)');
     ctx.fillStyle = g;
     ctx.fill();
   }
@@ -280,9 +291,9 @@
     for (var i = 0; i < n; i++) ribbon(i, n, t, step);
 
     var vg = ctx.createRadialGradient(W * 0.34, H * 0.42, 0, W * 0.34, H * 0.42, Math.max(W, H) * 0.95);
-    vg.addColorStop(0, 'rgba(255,255,255,0.34)');
-    vg.addColorStop(0.55, 'rgba(255,255,255,0.05)');
-    vg.addColorStop(1, 'rgba(255,255,255,0.50)');
+    vg.addColorStop(0, 'rgba(255,250,246,0.30)');
+    vg.addColorStop(0.55, 'rgba(255,250,246,0.02)');
+    vg.addColorStop(1, 'rgba(255,250,246,0.46)');
     ctx.fillStyle = vg;
     ctx.fillRect(0, 0, W, H);
   }
